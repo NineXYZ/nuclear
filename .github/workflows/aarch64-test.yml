@@ -18,12 +18,12 @@ jobs:
           version: 18
           cache: npm
       - run: npm ci
-      - run: npm run build:linux -- --linux rpm --arm64
+      - run: npm run build:linux -- --linux rpm AppImage --arm64
         shell: bash
         env:
           VERSION: ${{ steps.package-version.outputs.version }}
       - name: Upload binaries
         uses: actions/upload-artifact@v2
         with:
-          name: nuclear-rpm-aarch64
+          name: nuclear-aarch64
           path: release/*.*
