@@ -1,0 +1,29 @@
+name: Release job (RPM-aarch64)
+
+on: workflow_dispatch
+
+jobs:
+  linux_release:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - uses: actions/checkout@master
+      - name: get-npm-version
+        id: package-version
+        uses: pchynoweth/action-get-npm-version@1.1.1
+      - name: Use Node.js 18
+        uses: actions/setup-node@master
+        with:
+          version: 18
+          cache: npm
+      - run: npm ci
+      - run: npm run build:linux -- --linux rpm --arm64
+        shell: bash
+        env:
+          VERSION: ${{ steps.package-version.outputs.version }}
+      - name: Upload binaries
+        uses: actions/upload-artifact@v2
+        with:
+          name: nuclear-rpm-aarch64
+          path: release/*.*
