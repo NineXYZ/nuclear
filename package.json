@@ -160,7 +160,6 @@
         "snap"
       ],
       "category": "Audio;AudioVideo;Network;Player;Music",
-      "arch": ["arm64"],
       "extraFiles": [
         {
           "from": "packages/main/bin/linux",
